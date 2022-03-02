@@ -18,6 +18,7 @@ use App\Http\Controllers\AnnouncementController;
 */
 
 Route::get('/', [PublicController::class, 'index'])->name('home');
+Route::get('/serch', [PublicController::class, 'search'])->name('search');
 
 Route::get('/announcements/new',[AnnouncementController::class, 'showForm'] )->name('fast');
 Route::post('/announcements/submit',[AnnouncementController::class, 'create'])->name('announcements.create');

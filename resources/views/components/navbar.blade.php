@@ -82,15 +82,14 @@
 </header>
 <div class="border-bottom pb-3 bg-light container">
     <div class="row row-cols-md-3 row-cols-2">
-        {{-- <div class="col-4">
+        <div class="col-4">
             <form method="GET" action="{{route("search")}}" class="d-flex col-12 col-lg-9 mb-2 mb-lg-0 me-lg-auto">
                 @csrf 
                 <div class="input-group">
-                    <input type="search" placeholder="Cerca" aria-label="Search" class="form-control m-2 me-0" name="q" aria-label="searchGroup">
-                    <button type="submit" class="btn btn-outline-success my-2" id="searchGroup"><i class="bi bi-search"></i></button>
+                    <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search" name="q">
                 </div>
             </form>
-        </div> --}}
+        </div>
         <div class="col-4">
             @auth
             @if(Auth::user()->is_revisor)

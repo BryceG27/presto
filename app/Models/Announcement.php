@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Announcement extends Model
 {
-    use HasFactory;
-
+    use Searchable;
+    
     public function toSearchableArray()
     {
         $array = [
@@ -16,19 +17,12 @@ class Announcement extends Model
             'title' => $this->title,
             'body' => $this->body,
             'price' => $this->price,
-            'altro' => 'categorie',
             'category' => $this->category
         ];
-        /* $array = [
-        *   'id'=> $this->id,
-        *   'title'=> $this->title,
-        *   'body'=> $this->body,
-        *   'altro'=> 'annunci, occasioni',
-        *   'annunci' => $annunci
-         ];*/
-
         return $array;
     }
+
+    use HasFactory;
 
     protected $fillable = [
         'title',
@@ -39,18 +33,18 @@ class Announcement extends Model
     ];
 
     public function category() {
-        return $this->belongsTo(Category::class);
-   }
+         return $this->belongsTo(Category::class);
+    }
 
-   public function user() {
-       return $this->belongsTo(User::class);
-   }
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 
-   public function images() {
-       return $this->hasMany(AnnouncementImage::class);
-   }
+    public function images() {
+        return $this->hasMany(AnnouncementImage::class);
+    }
 
-   static public function ToBeRevisionedCount() {
-       return Announcement::where('is_accepted', null)->count();
-   }
+    static public function ToBeRevisionedCount() {
+        return Announcement::where('is_accepted', null)->count();
+    }
 }
