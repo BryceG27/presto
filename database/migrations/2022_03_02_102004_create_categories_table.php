@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
         }); 
-        
         $categories = [
             'Informatica', 'Mobili', 'Motori', 'Hobbies', 'Musica', 'Libri', 'Immobili', 'Abiti', 'Giochi', 'Elettrodomestici'
         ];
@@ -29,6 +28,7 @@ return new class extends Migration
            $t->name = $category;
            $t->save();
         }
+
     }
 
     /**
@@ -40,4 +40,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('categories');
     }
-};
+}

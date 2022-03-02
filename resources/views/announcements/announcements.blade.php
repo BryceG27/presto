@@ -22,7 +22,7 @@
                                     <h5 class="card-title">{{$announcement->title}}</h5>
                                     <p class="card-text">{{$announcement->body}}.</p>
                                     <p class="card-text text-end text-primary fs-5 me-2">{{$announcement->price}}€</p>
-
+                                    
                                     <p class="card-text text-muted"><em>- {{$announcement->user->name}} -</em> at {{$announcement->created_at->format('h:m')}} {{$announcement->created_at->format('d/m/Y')}}</small></p>
                                     <div class="btn-group pb-3">
                                           <a href="{{route('announcement.detail', compact('announcement'))}} " class="btn btn-sm btn-outline-primary">Vai al Dettaglio
@@ -30,12 +30,12 @@
                                           @auth
                                           @if (Auth::user()->is_revisor)
                                           <form action="{{route('revisor.back', $announcement->id)}}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">Edit</button>
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">Edit</button>
                                           </form>
                                           @endif
                                           @endauth
-                                        </div>
+                                    </div>
                               </div>
                         </div>
                   </div>

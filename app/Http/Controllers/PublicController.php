@@ -16,14 +16,22 @@ class PublicController extends Controller
         ];
         $finalText = $welcomeText[$randGenerator];
         
-        $announcements = Announcement::where('is_accepted', true)->orderBy('created_at', 'desc')->take(5)->get();
+        $announcements = Announcement::where('is_accepted', true)
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+            
         return view('index', compact('announcements', 'finalText'));
     }
 
     public function announcementByCategory($name, $category_id) {
         $category = Category::find($category_id);
         
-        $announcements = $category->announcements()->where('is_accepted', true)->orderBy('created_at', 'desc')->paginate(5);
+        $announcements = $category
+            ->announcements()
+            ->where('is_accepted', true)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
 
         return view('announcements.announcements', compact('category','announcements'));
     }

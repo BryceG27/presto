@@ -91,7 +91,7 @@
                 </div>
             </form>
         </div> --}}
-        {{-- <div class="col-4">
+        <div class="col-4">
             @auth
             @if(Auth::user()->is_revisor)
             <div class="text-center">
@@ -105,7 +105,7 @@
             </div>
             @endif
             @endauth
-        </div> --}}
+        </div>
         <div class="col-4 text-end mt-2">
             <a class="btn btn-outline-danger" href="{{route('fast')}}"><i class="bi bi-plus-square"></i> Crea annuncio</a>
         </div>
