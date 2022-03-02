@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PublicController;
+use App\Http\Controllers\AnnouncementController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PublicController::class, 'index'])->name('home');
+
+Route::get('/announcements/new',[AnnouncementController::class, 'showForm'] )->name('fast');
+Route::post('/announcements/submit',[AnnouncementController::class, 'create'])->name('announcements.create');
