@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Announcement;
 use Illuminate\Http\Request;
+use App\Models\AnnouncementImage;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\AnnouncementRequest;
 
 class AnnouncementController extends Controller
@@ -13,8 +17,13 @@ class AnnouncementController extends Controller
         $this->middleware('auth');
     }
 
-    public function showForm () {
-        return view('announcements.create');
+    public function showForm (Request $request) {
+        $uniqueSecret = $request->old(
+            'uniqueSecret',
+            base_convert(sha1(uniqid(mt_rand())), 16, 36)
+        );
+
+        return view('announcements.create', compact('uniqueSecret'));
     }
 
     public function create(AnnouncementRequest $request){
@@ -27,6 +36,72 @@ class AnnouncementController extends Controller
             'user_id'=>Auth::id()
         ]);
 
+        $uniqueSecret = $request->input('uniqueSecret');
+
+        $images = session()->get("images.{$uniqueSecret}", []);
+        $removedImages = session()->get("removedimages.{$uniqueSecret}", []);
+        $images = array_diff($images, $removedImages);
+
+        foreach ($images as $image) {
+            $i = new AnnouncementImage();
+
+            $fileName = basename($image);
+            $newFileName = "public/announcements/{$announcement->id}/{$fileName}";
+            Storage::move($image, $newFileName);
+
+            $i->file = $newFileName;
+            $i->announcement_id = $announcement->id;
+
+            $i->save();
+        }
+
+        File::deleteDirectory(storage_path("/app/public/temp/{$uniqueSecret}"));
+
         return redirect(route('home'))->with('message', 'Annuncio inserito corretamente.');
+    }
+
+    public function uploadImage(Request $request)
+    {
+        $uniqueSecret = $request->input('uniqueSecret');
+
+        $fileName = $request->file('file')->store("public/temp/{$uniqueSecret}");
+
+        session()->push("images.{$uniqueSecret}", $fileName);
+
+        return response()->json([
+            'id'=>$fileName
+        ]);
+    }
+
+    public function removeImage(Request $request) {
+
+        $uniqueSecret = $request->input('uniqueSecret');
+        
+        $fileName = $request->input ('id');
+        
+        session()->push("removedimages.{$uniqueSecret}", $fileName);
+
+        Storage::delete($fileName);
+
+        return response()->json('ok');
+    }
+
+    public function getImages(Request $request)
+    {
+        $uniqueSecret = $request->input('uniqueSecret');
+        $images = session()->get("images.{$uniqueSecret}", []);
+     
+        $removedImages = session()->get("removedimages.{$uniqueSecret}",[]);
+       
+        $images = array_diff($images, $removedImages);
+        $data = [];
+        
+        foreach ($images as $image){
+            $data[] = [
+                'id'=> $image,
+                'src'=> Storage::url($image)
+            ];
+        }
+        return response()->json($data);
     }
 }

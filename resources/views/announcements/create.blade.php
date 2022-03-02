@@ -9,6 +9,7 @@
         <div class="col-12 col-md-8 offset-md-2 py-3">
           <form method="POST" action="{{route('announcements.create')}}">
             @csrf
+            <input type="hidden" name="uniqueSecret" value="{{$uniqueSecret}}">
             <div class="mb-3">
               <div class="form-floating">
                 <input type="text" class="form-control" id="floatingText" placeholder="Titolo annuncio" name="title">
@@ -45,7 +46,7 @@
               </div>
             </div>
             
-              {{-- <div class="form-group row">
+              <div class="form-group row">
                 <label for="images" class="col-md-12 col-form-label text-md-right">Immagini</label>
                 <div class="col-md-12">
                   <div class="dropzone" id="drophere"></div>
@@ -55,7 +56,7 @@
                       </span>
                   @enderror
                 </div>
-              </div> --}}
+              </div>
               <button type="submit" class="btn btn-primary my-4">Invia</button>
             
           </form>

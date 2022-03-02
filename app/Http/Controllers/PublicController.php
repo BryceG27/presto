@@ -35,4 +35,8 @@ class PublicController extends Controller
 
         return view('announcements.announcements', compact('category','announcements'));
     }
+
+    public function announcementDetail (Announcement $announcement) {
+        return view('announcements.detail', compact('announcement'));
+    }
 }

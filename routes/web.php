@@ -21,6 +21,11 @@ Route::get('/', [PublicController::class, 'index'])->name('home');
 
 Route::get('/announcements/new',[AnnouncementController::class, 'showForm'] )->name('fast');
 Route::post('/announcements/submit',[AnnouncementController::class, 'create'])->name('announcements.create');
+Route::get('/announcements/detail/{announcement}', [PublicController::class, 'announcementDetail'] )->name('announcement.detail');
+
+Route::post('/announcements/images/upload',[AnnouncementController::class, 'uploadImage'])->name('announcements.images.upload');
+Route::delete('/announcements/images/remove',[AnnouncementController::class, 'removeImage'])->name('announcements.images.remove');
+Route::get('/announcements/images', [AnnouncementController::class, 'getImages'])->name('announcements.images');
 
 Route::get('/category/{name}/{id}/announcements', [PublicController::class, 'announcementByCategory'])->name('announcement.category');
 
