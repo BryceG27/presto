@@ -20,3 +20,5 @@ Route::get('/', [PublicController::class, 'index'])->name('home');
 
 Route::get('/announcements/new',[AnnouncementController::class, 'showForm'] )->name('fast');
 Route::post('/announcements/submit',[AnnouncementController::class, 'create'])->name('announcements.create');
+
+Route::get('/category/{name}/{id}/announcements', [PublicController::class, 'announcementByCategory'])->name('announcement.category');

@@ -14,7 +14,10 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     @foreach ($categories as $category)
-                    <a class="text-decoration-none text-dark ms-2" href="">
+                    <a class="text-decoration-none text-dark ms-2" href="{{route('announcement.category',[
+                    $category->name,
+                    $category->id
+                    ])}} ">
                     {{$category->name}}
                 </a>
                 <br>
