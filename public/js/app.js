@@ -3262,11 +3262,36 @@ $(function () {
 
 __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
 
+__webpack_require__(/*! ./script.js */ "./resources/js/script.js");
+
 document.Dropzone = __webpack_require__(/*! dropzone */ "./node_modules/dropzone/dist/dropzone.js");
 window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 Dropzone.autoDiscover = false;
 
 __webpack_require__(/*! ./announcementImages.js */ "./resources/js/announcementImages.js");
+
+/***/ }),
+
+/***/ "./resources/js/script.js":
+/*!********************************!*\
+  !*** ./resources/js/script.js ***!
+  \********************************/
+/***/ (() => {
+
+var testo = "L'annuncio è a portata di click!",
+    output = "";
+var i = 0,
+    speed = 150;
+var prova = setInterval(scrivi, speed);
+
+function scrivi() {
+  if (i == testo.length) clearInterval(prova);
+  output += testo.charAt(i);
+  document.getElementById("testo").innerHTML = output;
+  i++;
+}
+
+scrivi();
 
 /***/ }),
 
