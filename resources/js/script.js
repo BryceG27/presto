@@ -5,13 +5,17 @@ let i = 0, speed = 150;
 let prova = setInterval(scrivi, speed);
 
 function scrivi() {
+
+    let myVariable= document.getElementById("testo");
     
     if (i == testo.length) 
         clearInterval(prova);
 
     output += testo.charAt(i);
     
-    document.getElementById("testo").innerHTML = output;
+    if (myVariable) {
+        myVariable.innerHTML = output;
+    }
     
     i++;
 }

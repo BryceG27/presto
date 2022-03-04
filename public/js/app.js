@@ -3260,9 +3260,10 @@ $(function () {
   \*****************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-__webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
+__webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js"); // require('./script.js');
 
-__webpack_require__(/*! ./script.js */ "./resources/js/script.js");
+
+__webpack_require__(/*! ./typeWriter.js */ "./resources/js/typeWriter.js");
 
 document.Dropzone = __webpack_require__(/*! dropzone */ "./node_modules/dropzone/dist/dropzone.js");
 window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
@@ -3272,26 +3273,32 @@ __webpack_require__(/*! ./announcementImages.js */ "./resources/js/announcementI
 
 /***/ }),
 
-/***/ "./resources/js/script.js":
-/*!********************************!*\
-  !*** ./resources/js/script.js ***!
-  \********************************/
+/***/ "./resources/js/typeWriter.js":
+/*!************************************!*\
+  !*** ./resources/js/typeWriter.js ***!
+  \************************************/
 /***/ (() => {
 
-var testo = "L'annuncio è a portata di click!",
-    output = "";
-var i = 0,
-    speed = 150;
-var prova = setInterval(scrivi, speed);
+var content = 'Testo di prova';
+var text = document.getElementById('text');
+var speed = 190;
+var cont = 0;
 
-function scrivi() {
-  if (i == testo.length) clearInterval(prova);
-  output += testo.charAt(i);
-  document.getElementById("testo").innerHTML = output;
-  i++;
+function typeWriter() {
+  if (text) {
+    if (cont < content.length) {
+      text.textContent += content.charAt(cont);
+      cont++;
+      setTimeout(typeWriter, speed);
+    } else {
+      text.textContent = '';
+      cont = 0;
+      typeWriter();
+    }
+  }
 }
 
-scrivi();
+typeWriter();
 
 /***/ }),
 
