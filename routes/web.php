@@ -20,6 +20,8 @@ use App\Http\Controllers\AnnouncementController;
 Route::get('/', [PublicController::class, 'index'])->name('home');
 Route::get('/serch', [PublicController::class, 'search'])->name('search');
 
+Route::post('/locale/{locale}', [PublicController::class, 'locale'])->name('locale');
+
 Route::get('/announcements/new',[AnnouncementController::class, 'showForm'] )->name('fast');
 Route::post('/announcements/submit',[AnnouncementController::class, 'create'])->name('announcements.create');
 Route::get('/announcements/detail/{announcement}', [PublicController::class, 'announcementDetail'] )->name('announcement.detail');
