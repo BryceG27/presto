@@ -25,28 +25,14 @@
             </div>
         </li> 
         <li class="nav-item">
-            <form action="{{route('locale', 'it')}}" method="POST">
-                @csrf
-                <button type="submit" class="nav-link" style="background-color:transparent; border: none">
-                    <span class="flag-icon flag-icon-it"></span>
-                </button>
-            </form>
+            @include('components.locale', ['lang' => 'it', 'nation' => 'it'])
         </li>
         <li class="nav-item">
-            <form action="{{route('locale', 'gb')}}" method="POST">
-                @csrf
-                <button type="submit" class="nav-link" style="background-color:transparent; border: none">
-                    <span class="flag-icon flag-icon-gb"></span>
-                </button>
-            </form>
+            @include('components.locale', ['lang' => 'en', 'nation' => 'gb'])
         </li>
         <li class="nav-item">
-            <form action="{{route('locale', 'es')}}" method="POST">
-                @csrf
-                <button type="submit" class="nav-link" style="background-color:transparent; border: none">
-                    <span class="flag-icon flag-icon-es"></span>
-                </button>
-            </form>
+            @include('components.locale', ['lang' => 'es', 'nation' => 'es'])
+
         </li>    
         {{-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark text-decoration-none" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

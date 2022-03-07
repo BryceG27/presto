@@ -14,6 +14,7 @@
                   Accesso non consentito
                 </div>
                 @endif
+                <h1 class="text-center py-3">{{__('ui.welcome')}}</h1>
                 <div class="card bg-dark text-white text-md-end">
                   <img src="" class="card-img-fluid" alt="" height="300px" style="opacity: 0.75">
                   <div class="card-img-overlay mt-5 pt-5 typewriter">

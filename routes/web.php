@@ -18,7 +18,7 @@ use App\Http\Controllers\AnnouncementController;
 */
 
 Route::get('/', [PublicController::class, 'index'])->name('home');
-Route::get('/serch', [PublicController::class, 'search'])->name('search');
+Route::get('/search', [PublicController::class, 'search'])->name('search');
 
 Route::post('/locale/{locale}', [PublicController::class, 'locale'])->name('locale');
 
