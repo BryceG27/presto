@@ -24,17 +24,7 @@
                 @endforeach
             </div>
         </li> 
-        <li class="nav-item">
-            @include('components.locale', ['lang' => 'it', 'nation' => 'it'])
-        </li>
-        <li class="nav-item">
-            @include('components.locale', ['lang' => 'en', 'nation' => 'gb'])
-        </li>
-        <li class="nav-item">
-            @include('components.locale', ['lang' => 'es', 'nation' => 'es'])
-
-        </li>    
-        {{-- <li class="nav-item dropdown">
+        <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark text-decoration-none" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="text-uppercase"><i class="bi bi-globe pe-2"></i> <strong>{{App::currentLocale()}}</strong></span>
             </a>
@@ -43,32 +33,25 @@
                 
                 @else    
                 <li class="nav-item d-flex">
-                    @include ('components._locale' , ['lang' => 'it' , 'nation' => 'it'])
+                    @include ('components.locale' , ['lang' => 'it' , 'nation' => 'it'])
                 </li>
                 @endif
                 @if ((App::isLocale('en')) == (App::currentLocale()))
                 
                 @else
                 <li class="nav-item d-flex">
-                    @include ('components._locale' , ['lang' => 'en' , 'nation' => 'gb'])
+                    @include ('components.locale' , ['lang' => 'en' , 'nation' => 'gb'])
                 </li>
                 @endif
                 @if ((App::isLocale('es')) == (App::currentLocale()))
                 
                 @else
                 <li class="nav-item d-flex">
-                    @include ('components._locale' , ['lang' => 'es' , 'nation' => 'es'])
-                </li>
-                @endif
-                @if ((App::isLocale('de')) == (App::currentLocale()))
-                
-                @else
-                <li class="nav-item d-flex">
-                    @include ('components._locale' , ['lang' => 'de' , 'nation' => 'de'])
+                    @include ('components.locale' , ['lang' => 'es' , 'nation' => 'es'])
                 </li>
                 @endif
             </ul>
-        </li> --}}
+        </li>
     </ul>
     
     <div class="col-md-4 text-end">

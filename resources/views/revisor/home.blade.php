@@ -56,6 +56,21 @@
                                         <img src="{{Storage::url($image->file)}}" alt="..." class="rounded">
                                     </div>
                                     <div class="col-md-8">
+                                        Adult: {{$image->adult}} <br> 
+                                        Medical: {{$image->medical}} <br>
+                                        Spoof: {{$image->spoof}} <br>
+                                        Violance: {{$image->violance}} <br>
+                                        Racy: {{$image->racy}} <br>
+
+                                        <b>Labels</b><br>
+                                        <ul>
+                                            @if($image->labels)
+                                                @foreach($image->labels as $label)
+                                                    <li>{{$label}}</li>
+                                                @endforeach
+                                            @endif
+                                        </ul>
+                                        
                                         {{$image->id}} <br>
                                         {{$image->file}} <br>
                                         {{Storage::url($image->file)}} <br>
