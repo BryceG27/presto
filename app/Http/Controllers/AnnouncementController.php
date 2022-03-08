@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\GoogleVisionLabelImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use App\Jobs\GoogleVisionRemoveFaces;
 use Illuminate\Support\Facades\Storage;
 use App\Jobs\GoogleVisionSafeSearchImage;
 use App\Http\Requests\AnnouncementRequest;
@@ -52,25 +53,17 @@ class AnnouncementController extends Controller
             $newFileName = "public/announcements/{$announcement->id}/{$fileName}";
             Storage::move($image, $newFileName);
 
-            dispatch(new ResizeImage(
-                $newFileName,
-                300,
-                150
-            ));
-
-            dispatch(new ResizeImage(
-                $newFileName,
-                500,
-                250
-            ));
-
             $i->file = $newFileName;
             $i->announcement_id = $announcement->id;
 
             $i->save();
+            GoogleVisionRemoveFaces::withChain([
+                new GoogleVisionSafeSearchImage($i->id),
+                new GoogleVisionLabelImage($i->id),
+                new ResizeImage($i->file,300,150),
+                new ResizeImage($i->file,400,300)
+            ])->dispatch($i->id);
 
-            dispatch(new GoogleVisionSafeSearchImage($i->id));
-            dispatch(new GoogleVisionLabelImage($i->id));
         }
 
         File::deleteDirectory(storage_path("/app/public/temp/{$uniqueSecret}"));

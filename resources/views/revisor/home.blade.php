@@ -59,7 +59,7 @@
                                         Adult: {{$image->adult}} <br> 
                                         Medical: {{$image->medical}} <br>
                                         Spoof: {{$image->spoof}} <br>
-                                        Violance: {{$image->violance}} <br>
+                                        Violence: {{$image->violence}} <br>
                                         Racy: {{$image->racy}} <br>
 
                                         <b>Labels</b><br>

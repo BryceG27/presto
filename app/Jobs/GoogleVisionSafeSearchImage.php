@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
 use App\Models\AnnouncementImage;
+use Facade\FlareClient\Http\Client;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -15,12 +16,14 @@ class GoogleVisionSafeSearchImage implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $announcement_image_id;
+    
     /**
      * Create a new job instance.
      *
      * @return void
      */
+    private $announcement_image_id;
+
     public function __construct($announcement_image_id)
     {
         $this->announcement_image_id = $announcement_image_id;
@@ -34,35 +37,35 @@ class GoogleVisionSafeSearchImage implements ShouldQueue
     public function handle()
     {
         $i = AnnouncementImage::find($this->announcement_image_id);
-
-        if(!$i)
-            return;
-        
-        $image = file_get_contents(storage_path('/app/'.$i->file));
-
-        putenv('GOOGLE_APPLICATION_CREDENTIALS='.base_path('google_credential.json'));
+        if(!$i){return; }
+        $image = file_get_contents(storage_path('/app/' . $i->file));
+        //imposta la variabile ambientale di GOOGLE_APPLICATION_CREDENTIALS
+        //al path del credentials fils
+        putenv('GOOGLE_APPLICATION_CREDENTIALS=' . base_path('google_credential.json'));
 
         $imageAnnotator = new ImageAnnotatorClient();
         $response = $imageAnnotator->safeSearchDetection($image);
-        $immageAnnotator->close();
+        $imageAnnotator->close();
+
         $safe = $response->getSafeSearchAnnotation();
 
-        $adult = $safe->getAdult();
-        $medical = $safe->getMedical();
+        $adult = $safe ->getAdult();
+        $medical = $safe ->getMedical();
         $spoof = $safe->getSpoof();
-        $violance = $safe->getViolance();
-        $racy  = $safe->getRacy();
+        $violence = $safe->getViolence();
+        $racy = $safe->getRacy();
 
-        $likelihoodName = [
-            'UNKNOWN', 'VERY_UNLIKELY', 'UNLIKELY', 'POSSIBLE', 'LIKELY', 'VERY_LIKELY'
-        ];
+        //echo json_encode([$adult, $medical, $spoof, $violence, $racy]);
+        
+        $likelihoodName = ['UNKNOWN','VERY_UNLIKELY','UNLIKELY','POSSIBLE','LIKELY','VERY_LIKELY' ];
 
-        $i->$adult  = $likelihoodName[$adult];
-        $i->$medical = $likelihoodName[$medical];
-        $i->$spoof = $likelihoodName[$spoof];
-        $i->$violance = $likelihoodName[$violance];
-        $i->$racy = $likelihoodName[$racy];
+        $i->adult = $likelihoodName[$adult];
+        $i->medical = $likelihoodName[$medical];
+        $i->spoof = $likelihoodName[$spoof];
+        $i->violence = $likelihoodName[$violence];
+        $i->racy = $likelihoodName[$racy];
 
         $i->save();
+
     }
 }

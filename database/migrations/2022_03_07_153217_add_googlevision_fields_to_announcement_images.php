@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('adult')->nullable();
             $table->string('spoof')->nullable();
             $table->string('medical')->nullable();
-            $table->string('violance')->nullable();
+            $table->string('violence')->nullable();
             $table->string('racy')->nullable();
         });
     }
