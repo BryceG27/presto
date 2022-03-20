@@ -1,23 +1,12 @@
-let testo = "L'annuncio è a portata di click!", output = "";
+const prova = document.querySelector('#homeHeader');
+const prova2 = document.createElement('span');
 
-let i = 0, speed = 150;
+console.log(prova.innerHTML);
 
-let prova = setInterval(scrivi, speed);
+prova.innerHTML = 'Caccapupu';
+prova2.innerHTML = 'Bambini morti';
 
-function scrivi() {
+prova2.classList.add('bg-white');
+prova2.classList.add('text-primary');
 
-    let myVariable= document.getElementById("testo");
-    
-    if (i == testo.length) 
-        clearInterval(prova);
-
-    output += testo.charAt(i);
-    
-    if (myVariable) {
-        myVariable.innerHTML = output;
-    }
-    
-    i++;
-}
-
-scrivi();
+prova.append(prova2);

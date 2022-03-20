@@ -11,11 +11,11 @@
                 </p>
             </div>
             <div class="card-footer d-flex justify-content-between">
-                <strong>Category: <a href=" {{route('public.announcement.category', [
+                <strong>Category: <a href=" {{route('announcement.category', [
                     $announcement->category->name, 
                     $announcement->category->id
                     ])}} ">{{$announcement->category->name}}</a></strong>
-                    <i> {{$announcement->created_at->format('d/m/Y')}} - {{$announcemenmt->user->name}}</i>
+                    <i> {{$announcement->created_at->format('d/m/Y')}} - {{$announcement->user->name}}</i>
             </div>
         </div>
     </div>
